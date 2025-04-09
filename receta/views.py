@@ -27,7 +27,7 @@ def buscar_recetas(request):
     else:
         form = BuscarRecetaForm()
 
-    return render(request, "receta/buscar.html", {
+    return render(request, "buscar.html", {
         "form": form,
         "recetas_locales": recetas_locales,
         "recetas_externas": recetas_externas
@@ -48,3 +48,7 @@ def guardar_receta(request):
             return redirect("buscar_recetas")
     
     return redirect("buscar_recetas")
+
+
+def inicio(request):
+    return render(request, "inicio.html")
