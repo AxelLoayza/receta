@@ -1,0 +1,23 @@
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Buscar</button>
+</form>
+
+{% if recetas_locales %}
+    <h2>Recetas en tu Base de Datos:</h2>
+    <ul>
+        {% for receta in recetas_locales %}
+            <li>{{ receta.nombre }} - Ingredientes: {{ receta.ingredientes }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if recetas_externas %}
+    <h2>Recetas de Spoonacular:</h2>
+    <ul>
+        {% for receta in recetas_externas %}
+            <li>{{ receta.title }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}

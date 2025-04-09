@@ -1,0 +1,37 @@
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Buscar</button>
+</form>
+
+{% if recetas_locales %}
+    <h2>Recetas en tu Base de Datos:</h2>
+    <ul>
+        {% for receta in recetas_locales %}
+            <li>{{ receta.nombre }} - Ingredientes: {{ receta.ingredientes }}
+                <form action="{% url 'guardar_receta' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="nombre" value="{{ receta.nombre }}">
+                    <input type="hidden" name="ingredientes" value="{{ receta.ingredientes }}">
+                    <button type="submit">Guardar</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% if recetas_externas %}
+    <h2>Recetas de Spoonacular:</h2>
+    <ul>
+        {% for receta in recetas_externas %}
+            <li>{{ receta.title }}
+                <form action="{% url 'guardar_receta' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="nombre" value="{{ receta.title }}">
+                    <input type="hidden" name="ingredientes" value="Desconocido">
+                    <button type="submit">Guardar</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
